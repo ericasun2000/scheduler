@@ -3,7 +3,8 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import "index.scss";
+import "index.scss"; // WHY?????????????????????????
+import "components/Appointment/styles.css"
 
 import Button from "components/Button";
 import DayListItem from "components/DayListItem";
