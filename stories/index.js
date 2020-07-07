@@ -4,7 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import "index.scss"; // WHY?????????????????????????
-import "components/Appointment/styles.css"
+// import "components/Appointment/styles.css"
 
 import Button from "components/Button";
 import DayListItem from "components/DayListItem";
@@ -12,6 +12,7 @@ import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem"
 import InterviewerList from "components/InterviewerList"
 import Appointment from "components/Appointment";
+import Header from "components/Appointment/Header";
 
 storiesOf("Button", module)
   .addParameters({
@@ -135,3 +136,4 @@ storiesOf("Appointment", module)
   })
   .add("Appointment", () => <Appointment />)
   .add("Appointment with Time", () => <Appointment time="12pm" />)
+  .add("Header", () => <Header time="12pm" />)
