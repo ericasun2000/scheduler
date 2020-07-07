@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "components/InterviewerListItem.scss";
 
-export default InterviewerListItem(props) {
+export default function InterviewerListItem(props) {
   return (
     <li className="interviewers__item">
       <img
