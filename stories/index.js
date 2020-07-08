@@ -132,7 +132,7 @@ storiesOf("InterviewerList", module)
   .add("Preselected", () => (
     <InterviewerList
       interviewers={interviewers}
-      value={3}
+      interviewer={3}
       onChange={action("onChange")} // "onChange" is storybook syntax onChange is props name
     />
   ));
@@ -150,5 +150,5 @@ storiesOf("Appointment", module)
   .add("Status", () => <Status message="Deleting" />)
   .add("Error", () => <Error message="Could not delete appointment." onClose={action("onClose")} />)
   .add("Form Create", () => <Form interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")} />)
-  .add("Form Edit", () => <Form name="Lydia Miller-Jones" interviewers={interviewers} value={3} onSave={action("onSave")} onCancel={action("onCancel")} />)
+  .add("Form Edit", () => <Form name="Lydia Miller-Jones" interviewers={interviewers} interviewer={3} onSave={action("onSave")} onCancel={action("onCancel")} />)
 
