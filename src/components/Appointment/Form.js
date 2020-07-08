@@ -7,10 +7,10 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
   // each setInterview function is different (id is changing and its not available here. Its available in child component)
-  const setInterviewHelper = id => {
-    setInterviewer(id);
-  }
-
+  // const setInterviewHelper = id => {
+  //   setInterviewer(id);
+  // }
+  
   const reset = () => {
     setName("");
     setInterviewer(null);
@@ -36,7 +36,7 @@ export default function Form(props) {
             */
           />
         </form>
-        <InterviewerList interviewers={props.interviewers} interviewer={interviewer} onChange={setInterviewHelper} />
+        <InterviewerList interviewers={props.interviewers} interviewer={interviewer} onChange={setInterviewer} />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
