@@ -6,7 +6,7 @@ import Empty from "./Empty.js";
 
 export default function Appointment(props) { 
   return (
-  <article className="appointment">
+  <article key={props.id} className="appointment">
     <Header time={props.time}></Header>
     {props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer} /> : <Empty />}
   </article>
