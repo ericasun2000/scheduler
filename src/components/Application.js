@@ -5,82 +5,37 @@ import Appointment from "components/Appointment";
 import axios from "axios"; 
 import { getAppointmentsForDay } from "../helpers/selectors.js"
 
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-    interview: {
-      student: "Erica Sun",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png"
-      }
-    }
-  },
-  {
-    id: 4,
-    time: "3pm"
-  },
-  {
-    id: 5,
-    time: "4pm",
-    interview: {
-      student: "Steve Jobs",
-      interviewer: {
-        id: 2,
-        name: "Tori Malcolm",
-        avatar: "https://i.imgur.com/Nmx0Qxo.png"
-      }
-    }
-  },
-  {
-    id: "last",
-    time: "5pm"
-  }
-];
-
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
 
-  const setDay = day => setState({...state, day});
-  // const setDays = days => setState(prev => ({...prev, days})); WHERE AM I SUPPOSED TO USE THIS
+  const setDay = day => { setState({...state, day}) }; // curly bc dont need it to be returned. want effects of setState. Return keyword without curly is overkill (bascially two return words, should be error)
 
   useEffect(() => {
     Promise.all([
       axios.get("http://localhost:8001/api/days"),
-      axios.get("http://localhost:8001/api/appointments")
+      axios.get("http://localhost:8001/api/appointments"),
+      axios.get("http://localhost:8001/api/interviewers")
     ])
-    .then(all => { 
-      setState({ 
+    .then(all => { // with curly braces, setState is not being returned. But its not supposed to be returned. 
+      setState({
         days: all[0].data, 
-        appointments: all[1].data
+        appointments: all[1].data,
+        interviewers: all[2].data
       })
     })
   }, []);
 
   const appointments = getAppointmentsForDay(state, state.day);
-  const appointmentElements = appointments.map(appointment => <Appointment key={appointment.id} {...appointment} />);
+  const appointmentElements = appointments.map(appointment => {
+    const interview = getInterview(state, appointment.interview);
+    return <Appointment key={appointment.id} {...appointment} interview={interview} />
+});
+  // CURLY BRACES??? RETURN KEYWORD???
 
   return (
     <main className="layout">
