@@ -1,5 +1,3 @@
-import React from "react";
-
 export function getAppointmentsForDay(state, day) {
   if (state.days.length > 0) {
     const dayObject = state.days.find(el => el.name === day);
@@ -9,7 +7,6 @@ export function getAppointmentsForDay(state, day) {
       dayObjectApps.forEach(id => {
         Apps.push(state.appointments[id])
       })
-      console.log(Apps)
       return Apps;
     }
     return [];
