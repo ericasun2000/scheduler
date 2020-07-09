@@ -1,5 +1,5 @@
 import React from "react";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay } from "helpers/selectors";
 
 const state = {
   days: [
@@ -89,3 +89,4 @@ test("getInterview returns null if no interview is booked", () => {
   const result = getInterview(state, state.appointments["2"].interview);
   expect(result).toBeNull();
 });
+

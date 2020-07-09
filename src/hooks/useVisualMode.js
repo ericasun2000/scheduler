@@ -6,12 +6,12 @@ export default function useVisualMode(initial) {
 
   function transition(mode, replace) {
     if (replace === true) {
-      const index = history.indexOf(mode);
       // transition(THIRD, true) means history=[ONE, THREE] instead of history=[ONE, TWO, THREE]
-      setHistory([...history], history.splice(index, 1));
+      setHistory([...history.slice(0, history.length - 1), mode]);
+    } else {
+      setMode(mode);
+      setHistory([...history, mode]);
     }
-    setMode(mode);
-    setHistory([...history, mode]);
   }
 
   function back() {
