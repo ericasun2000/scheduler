@@ -3,7 +3,8 @@ import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 import axios from "axios"; 
-import { getAppointmentsForDay } from "../helpers/selectors.js"
+import { getAppointmentsForDay, getInterview } from "../helpers/selectors.js"
+import useVisualMode from "../hooks/useVisualMode.js"
 
 export default function Application(props) {
   const [state, setState] = useState({
