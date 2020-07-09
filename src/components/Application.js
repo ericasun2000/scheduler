@@ -34,7 +34,6 @@ export default function Application(props) {
   const appointmentElements = appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
   return <Appointment key={appointment.id} {...appointment} interview={interview}/>});
-  // CURLY BRACES??? RETURN KEYWORD???
 
   return (
     <main className="layout">
