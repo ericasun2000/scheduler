@@ -3,8 +3,7 @@ import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 import axios from "axios"; 
-import { getAppointmentsForDay, getInterview } from "../helpers/selectors.js"
-import useVisualMode from "../hooks/useVisualMode.js"
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors.js"
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -32,9 +31,13 @@ export default function Application(props) {
   }, []);
 
   const appointments = getAppointmentsForDay(state, state.day);
-  const appointmentElements = appointments.map(appointment => {
+  const interviewers = getInterviewersForDay(state, state.day);
+
+
+  const appointmentElements = interviewers && appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
-  return <Appointment key={appointment.id} {...appointment} interview={interview}/>});
+    return <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={interview} interviewers={interviewers} />
+  });
 
   return (
     <main className="layout">
