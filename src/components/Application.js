@@ -4,6 +4,7 @@ import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 import axios from "axios"; 
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors.js"
+import useVisualMode from "../hooks/useVisualMode.js"
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -14,6 +15,19 @@ export default function Application(props) {
   });
 
   const setDay = day => { setState({...state, day}) }; // curly bc dont need it to be returned. want effects of setState. Return keyword without curly is overkill (bascially two return words, should be error)
+
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+    // const appointment = {
+    //   ...state.appointments[id],
+    //   interview: { ...interview }
+    // };
+    // const appointments = {
+    //   ...state.appointments,
+    //   [id]: appointment
+    // };
+    // setState({...state, appointments})
+  }
 
   useEffect(() => {
     Promise.all([
@@ -36,7 +50,7 @@ export default function Application(props) {
 
   const appointmentElements = interviewers && appointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
-    return <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={interview} interviewers={interviewers} />
+    return <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={interview} interviewers={interviewers} bookInterview={bookInterview} />
   });
 
   return (
