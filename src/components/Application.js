@@ -16,7 +16,6 @@ export default function Application(props) {
   const setDay = day => { setState({...state, day}) }; // curly bc dont need it to be returned. want effects of setState. Return keyword without curly is overkill (bascially two return words, should be error)
 
   function bookInterview(id, interview) {
-    console.log(id, interview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -25,10 +24,13 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-   
-    console.log(appointment);
-    return axios.put(`api/appointments/${id}`, appointment).then(() => setState({...state, appointments}))
+
+    return axios.put(`api/appointments/${id}`, appointment)
+      .then(() => setState({...state, appointments}))
+      .catch((error) => { return Promise.reject(error)})
   }
+
+  // return (       axios.delete(`/api/appointments/${id}`)         .then((response) => {           setState({...state, appointments})         })         .catch((error) => {           return Promise.reject(error);         })     )
 
   function cancelInterview(id) {
     const appointment = {
@@ -40,7 +42,9 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    return axios.delete(`api/appointments/${id}`).then(() => setState({...state, appointments}))
+    return axios.delete(`api/appointments/${id}`)
+      .then(() => setState({...state, appointments}))
+      .catch(error => { return Promise.reject(error)})
   }
 
   useEffect(() => {
