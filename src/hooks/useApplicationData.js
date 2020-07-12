@@ -33,8 +33,16 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+    const dayObj = state.days.find(day => day.appointments.includes(id));
+    const dayObjIndex = state.days.indexOf(dayObj);
+    const days = state.days;
+    const available = dayObj.spots + 1; 
+    days[dayObjIndex] = {...days[dayObjIndex], spots: available};
+    console.log(days);
+   
+
     return axios.delete(`api/appointments/${id}`)
-      .then(() => setState({...state, appointments}))
+      .then(() => setState({...state, days, appointments}))
       .catch(error => { return Promise.reject(error)})
   }
 
