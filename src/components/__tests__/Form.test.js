@@ -30,7 +30,7 @@ describe("Form", () => {
     fireEvent.click(getByText("Save"));
   
     expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
-    expect(onSave).not.toHaveBeenCalled();
+    expect(onSaveMockFn).not.toHaveBeenCalled();
   });
   
   it("calls onSave function when the name is defined", () => {
@@ -45,8 +45,8 @@ describe("Form", () => {
     fireEvent.click(getByText("Save"));
   
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
-    expect(onSave).toHaveBeenCalledTimes(1);
-    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
+    expect(onSaveMockFn).toHaveBeenCalledTimes(1);
+    expect(onSaveMockFn).toHaveBeenCalledWith("Lydia Miller-Jones", null);
   });
 });
 
