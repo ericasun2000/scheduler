@@ -41,6 +41,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {appointmentElements}
+        <Appointment id={"last"} />
       </section>
     </main>
   );

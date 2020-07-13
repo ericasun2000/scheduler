@@ -3,8 +3,7 @@ import React, { Fragment } from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import "index.scss"; // WHY?????????????????????????
-// import "components/Appointment/styles.css"
+import "index.scss";
 
 import Button from "components/Button";
 import DayListItem from "components/DayListItem";
@@ -132,7 +131,7 @@ storiesOf("InterviewerList", module)
   .add("Preselected", () => (
     <InterviewerList
       interviewers={interviewers}
-      interviewer={3}
+      value={3}
       onChange={action("onChange")} // "onChange" is storybook syntax onChange is props name
     />
   ));
