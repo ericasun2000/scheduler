@@ -1,7 +1,7 @@
 import React from "react";
 import Application from "components/Application";
 // imported queries have no container
-import { render, cleanup, waitForElement, fireEvent, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText } from "@testing-library/react"; 
+import { render, cleanup, waitForElement, fireEvent, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText, prettyDOM } from "@testing-library/react"; 
 
 
 
@@ -39,4 +39,35 @@ describe("Application", () => {
     expect(getByText(day, /no spots remaining/i)).toBeInTheDocument();
     
   });
+
+  it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async() => {
+    // 1. Render the Application.
+    const { container, debug } = render(<Application />);
+
+    // 2. Wait until the text "Archie Cohen" is displayed.
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+    const appointment = getAllByTestId(container, "appointment").find(appointment => queryByText(appointment, "Archie Cohen"));
+
+    // 3. Click the "Delete" button.
+    fireEvent.click(getByAltText(appointment, "Delete"));
+
+    // 4. Check that the Confirm element is displayed
+    expect(getByText(appointment, /are you sure you would like to delete?/i)).toBeInTheDocument();
+
+    // 5. Click the "Confirm" button
+    fireEvent.click(getByText(appointment, "Confirm"));
+
+    // 6. Check that the element with the text "Deleting" is displayed.
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
+
+    // 7. Wait until the Add element is displayed
+    await waitForElement(() => getByAltText(appointment, "Add"));
+
+    // 8. Check that the DayListItem with the text "Monday" also has the text "1 spot remaining"
+    const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
+    expect(getByText(day, /1 spot remaining/i)).toBeInTheDocument();
+
+    console.log(prettyDOM(day));
+    debug();
+  })
 });
