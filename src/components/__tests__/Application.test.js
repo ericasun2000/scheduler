@@ -1,18 +1,21 @@
 import React from "react";
-
-import { render, cleanup, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText } from "@testing-library/react";
-
 import Application from "components/Application";
+// imported queries have no container
+import { render, cleanup, waitForElement, fireEvent, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText } from "@testing-library/react"; 
+
+
 
 afterEach(cleanup);
 
 describe("Application", () => {
   it("defaults to Monday and changes the schedule when a new day is selected", () => {
-    const { getByText } = render(<Application />);
+    // queries returned by render already have container (document.body)
+    const { getByText } = render(<Application />); 
   
     return waitForElement(() => getByText("Monday")).then(() => {
       fireEvent.click(getByText("Tuesday"));
       expect(getByText("Leopold Silvers")).toBeInTheDocument();
+
     });
   });
   
@@ -29,8 +32,11 @@ describe("Application", () => {
     });
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
     fireEvent.click(getByText(appointment, "Save"));
-
-    console.log(prettyDOM(appointment));
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+    
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
+    const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday")); // queryBy returns null and getBy returns error
+    expect(getByText(day, /no spots remaining/i)).toBeInTheDocument();
     
   });
 });
