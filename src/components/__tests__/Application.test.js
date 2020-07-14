@@ -16,11 +16,12 @@ describe("Application", () => {
     });
   });
   
-  it("loads data, books an interview and reduces the spots remaining for Monday by 1", async () => {
+  it("loads data, books an interview and reduces the spots remaining for Monday by 1", async() => {
     const { container } = render(<Application />);
     
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    const appointment = getAllByTestId(container, "appointment")[0];
+    const appointments = getAllByTestId(container, "appointment")
+    const appointment = appointments[0];
 
     fireEvent.click(getByAltText(appointment, "Add"));
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
