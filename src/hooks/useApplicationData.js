@@ -8,7 +8,7 @@ export default function useApplicationData() {
     appointments: {},
     interviewers: {}
   });
-  const setDay = day => { setState({...state, day}) }; // curly bc dont need it to be returned. want effects of setState. Return keyword without curly is overkill (bascially two return words, should be error)
+  const setDay = day => { setState(prev => ({...prev, day})) }; // curly bc dont need it to be returned. want effects of setState. Return keyword without curly is overkill (bascially two return words, should be error)
 
   function bookInterview(id, interview) {
     const appointment = {
@@ -57,11 +57,12 @@ export default function useApplicationData() {
       axios.get("/api/interviewers")
     ])
     .then(all => { // with curly braces, setState is not being returned. But its not supposed to be returned. 
-      setState({
+      setState(prev => ({
+        ...prev,
         days: all[0].data, 
         appointments: all[1].data,
         interviewers: all[2].data
-      })
+      }))
     })
   }, []);
   
