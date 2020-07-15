@@ -26,7 +26,7 @@ export default function useApplicationData() {
     days[dayObjIndex] = {...days[dayObjIndex], spots: dayObj.spots - 1};
     
     return axios.put(`api/appointments/${id}`, appointment)
-      .then(() => setState({...state, days, appointments}))
+      .then(() => setState(prev => ({...prev, days, appointments})))
       .catch((error) => { return Promise.reject(error)})
   }
 
@@ -46,7 +46,7 @@ export default function useApplicationData() {
     days[dayObjIndex] = {...days[dayObjIndex], spots: dayObj.spots + 1};
 
     return axios.delete(`api/appointments/${id}`)
-      .then(() => setState({...state, days, appointments}))
+      .then(() => setState(prev => ({...prev, days, appointments})))
       .catch(error => { return Promise.reject(error)})
   }
 
