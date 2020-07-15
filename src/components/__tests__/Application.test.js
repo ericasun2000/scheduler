@@ -67,7 +67,29 @@ describe("Application", () => {
     const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
     expect(getByText(day, /1 spot remaining/i)).toBeInTheDocument();
 
-    console.log(prettyDOM(day));
-    debug();
   })
+
+  it("load data, edits an interview and keeps the spots remaining for Monday the same", async () => {
+    // 1. Render the Application.
+    const { container, debug } = render(<Application />);
+    // 2. Wait until the text "Archie Cohen" is displayed.
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+    const appointment = getAllByTestId(container, "appointment").find(appointment => queryByText(appointment, "Archie Cohen"));
+    // 3. Click the "Edit" button.
+    fireEvent.click(getByAltText(appointment, "Edit"));
+    // 4. Change the student name and/or the interviewer.
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: "Steve" }
+    });
+    // 5. Click the "Save" button.
+    fireEvent.click(getByText(appointment, "Save"));
+    // 6. Check the Status component with the text "Saving" is displayed.
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+    // 7. Wait until the new name is displayed.
+    await waitForElement(() => getByText(appointment, "Steve"));
+    // 8. Check that the DayListItem with the text "Monday" still displays "1 spot remaining"
+    const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
+    expect(getByText(day, /no spots remaining/i)).toBeInTheDocument();
+
+  });
 });
