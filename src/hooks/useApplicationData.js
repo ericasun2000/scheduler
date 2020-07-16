@@ -11,7 +11,7 @@ export default function useApplicationData() {
   const setDay = day => { setState(prev => ({...prev, day})) }; 
   // Use curly bc we don't want to return. Curly and return keyword is overkill
 
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview, isEdit) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -24,8 +24,9 @@ export default function useApplicationData() {
     const dayObj = state.days.find(day => day.appointments.includes(id));
     const dayObjIndex = state.days.indexOf(dayObj);
     const days = state.days;
-    days[dayObjIndex] = {...days[dayObjIndex], spots: dayObj.spots - 1};
-    
+    if (!isEdit) {
+      days[dayObjIndex] = {...days[dayObjIndex], spots: dayObj.spots - 1};
+    }
     return axios.put(`api/appointments/${id}`, appointment)
       .then(() => setState(prev => ({...prev, days, appointments})))
       .catch((error) => { return Promise.reject(error)});
