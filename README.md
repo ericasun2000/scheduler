@@ -1,23 +1,63 @@
 # Interview Scheduler
 
+## Project Description
+
+Inteview Scheduler is a single page web application that, as its name suggests, allows students to book, edit and cancel appointments with interviewers. 
+
+## Final Product
+
+Booking an interview 
+
+![book](docs/book.gif)
+
+Editing an interview
+
+![edit](docs/edit.gif)
+
+Deleting an interview
+
+![cancel](docs/cancel.gif)
+
+
+## Tech Stack
+
+- React
+- Axios
+- Webpack
+- Babel
+- PostgreSQL
+
 ## Setup
 
-Install dependencies with `npm install`.
+1. Fork and clone this repository
+2. Install all dependencies using `npm install`
+3. Start the app server using `npm start`
+4. Go to <http://localhost:8000/>
+5. Fork and clone the [scheduler-api repository](https://github.com/ericasun2000/scheduler-api)
+6. Follow the README.md directions to setup the API server
 
-## Running Webpack Development Server
+## Dependencies
 
-```sh
-npm start
-```
+- axios
+- classnames
+- fsevents
+- normalize.css
+- react
+- react-dom
+- react-scripts
 
-## Running Jest Test Framework
+## Dev Dependencies
 
-```sh
-npm test
-```
-
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+- babel/core
+- storybook/addon-actions
+- storybook/addon-backgrounds
+- storybook/addon-links
+- storybook/addons
+- storybook/react
+- testing-library/jest-dom
+- testing-library/react
+- testing-library/react-hooks
+- babel-loader
+- node-sass
+- prop-types
+- react-test-renderer
