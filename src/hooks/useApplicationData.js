@@ -8,7 +8,8 @@ export default function useApplicationData() {
     appointments: {},
     interviewers: {}
   });
-  const setDay = day => { setState(prev => ({...prev, day})) }; // curly bc dont need it to be returned. want effects of setState. Return keyword without curly is overkill (bascially two return words, should be error)
+  const setDay = day => { setState(prev => ({...prev, day})) }; 
+  // Use curly bc we don't want to return. Curly and return keyword is overkill
 
   function bookInterview(id, interview) {
     const appointment = {
@@ -27,8 +28,8 @@ export default function useApplicationData() {
     
     return axios.put(`api/appointments/${id}`, appointment)
       .then(() => setState(prev => ({...prev, days, appointments})))
-      .catch((error) => { return Promise.reject(error)})
-  }
+      .catch((error) => { return Promise.reject(error)});
+  };
 
   function cancelInterview(id) {
     const appointment = {
@@ -47,8 +48,8 @@ export default function useApplicationData() {
 
     return axios.delete(`api/appointments/${id}`)
       .then(() => setState(prev => ({...prev, days, appointments})))
-      .catch(error => { return Promise.reject(error)})
-  }
+      .catch(error => { return Promise.reject(error)});
+  };
 
   useEffect(() => {
     Promise.all([
@@ -66,6 +67,6 @@ export default function useApplicationData() {
     })
   }, []);
   
-  return { state: state, setDay, bookInterview, cancelInterview }
-}
+  return { state: state, setDay, bookInterview, cancelInterview };
+};
 

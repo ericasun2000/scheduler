@@ -7,22 +7,19 @@ export default function useVisualMode(initial) {
   function transition(mode, replace = false) {
     if (replace) {
       // transition(THIRD, true) means history=[ONE, THREE] instead of history=[ONE, TWO, THREE]
-      // setHistory([...history.slice(0, history.length - 1), mode]);
       setHistory(prev => [...prev.slice(0, prev.length - 1), mode]);
     } else {
-      // setHistory([...history, mode]);
-      setHistory(prev => [...prev, mode])
+      setHistory(prev => [...prev, mode]);
     }
     setMode(mode);
-  }
+  };
 
   function back() {
     if (history.length > 1) {
-      setMode(history[history.length - 2])
-      // setHistory(history.slice(0, -1));
+      setMode(history[history.length - 2]);
       setHistory(prev => prev.slice(0, -1));
     }
-  }
+  };
 
-  return { mode, transition, back }
-}
+  return { mode, transition, back };
+};

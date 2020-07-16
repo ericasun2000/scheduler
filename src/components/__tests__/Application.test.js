@@ -1,10 +1,8 @@
 import React from "react";
 import Application from "components/Application";
 // imported queries have no container
-import { render, cleanup, waitForElement, fireEvent, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText, prettyDOM } from "@testing-library/react"; 
+import { render, cleanup, waitForElement, fireEvent, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText } from "@testing-library/react"; 
 import axios from "axios";
-
-
 
 afterEach(cleanup);
 
@@ -24,7 +22,7 @@ describe("Application", () => {
     const { container } = render(<Application />);
     
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    const appointments = getAllByTestId(container, "appointment")
+    const appointments = getAllByTestId(container, "appointment");
     const appointment = appointments[0];
 
     fireEvent.click(getByAltText(appointment, "Add"));
@@ -36,9 +34,9 @@ describe("Application", () => {
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
     
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
-    const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday")); // queryBy returns null and getBy returns error
+    // queryBy returns null and getBy returns error
+    const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday")); 
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
-    
   });
 
   it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async() => {
@@ -67,8 +65,7 @@ describe("Application", () => {
     // 8. Check that the DayListItem with the text "Monday" also has the text "1 spot remaining"
     const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
-
-  })
+  });
 
   it("load data, edits an interview and keeps the spots remaining for Monday the same", async () => {
     // 1. Render the Application.
@@ -91,7 +88,6 @@ describe("Application", () => {
     // 8. Check that the DayListItem with the text "Monday" still displays "1 spot remaining"
     const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
-
   });
 
   it("shows the save error when failing to save an appointment", async() => {
@@ -99,7 +95,7 @@ describe("Application", () => {
     const { container } = render(<Application />);
     
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    const appointments = getAllByTestId(container, "appointment")
+    const appointments = getAllByTestId(container, "appointment");
     const appointment = appointments[0];
 
     fireEvent.click(getByAltText(appointment, "Add"));
@@ -110,16 +106,15 @@ describe("Application", () => {
     fireEvent.click(getByText(appointment, "Save"));
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
-    await waitForElement(() => getByText(appointment, "Could not save appointment."))
+    await waitForElement(() => getByText(appointment, "Could not save appointment."));
     fireEvent.click(getByAltText(appointment, "Close"));
     expect(getByText(appointment, "Cancel")).toBeInTheDocument();
     expect(getByText(appointment, "Save")).toBeInTheDocument();
-
   });
 
   it("shows the delete error when failing to delete an existing appointment", async() => {
     axios.delete.mockRejectedValueOnce();
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
     const appointment = getAllByTestId(container, "appointment").find(appointment => queryByText(appointment, "Archie Cohen"));
@@ -133,10 +128,5 @@ describe("Application", () => {
     await waitForElement(() => getByText(appointment, "Could not delete appointment."));
     fireEvent.click(getByAltText(appointment, "Close"));
     expect(getByText(appointment, "Archie Cohen")).toBeInTheDocument();
-
-    console.log(prettyDOM(appointment));
-    debug();
-
-
   });
 });

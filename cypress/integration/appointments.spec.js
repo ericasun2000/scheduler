@@ -1,13 +1,9 @@
-const { CYCLIC_KEY } = require("@storybook/addon-actions/dist/constants");
-const { getByAltText } = require("@testing-library/react");
-
 describe("Appointments", () => {
   beforeEach(() => {
     cy.request("GET", "/api/debug/reset");
   
     cy.visit("/")
       .contains("Monday");
-
    });
 
   it("should book an interview", () => {
@@ -38,11 +34,11 @@ describe("Appointments", () => {
     .get("[alt='Tori Malcolm']")
     .click();
 
-  cy.contains("Save")
-    .click();
+    cy.contains("Save")
+      .click();
 
-  cy.contains(".appointment__card--show", "Lydia")
-    .contains(".appointment__card--show", "Tori Malcolm");
+    cy.contains(".appointment__card--show", "Lydia")
+      .contains(".appointment__card--show", "Tori Malcolm");
   });
 
   it("should cancel an interview", () => {
@@ -56,7 +52,7 @@ describe("Appointments", () => {
     cy.contains("Deleting")
       .should("exist")
       .contains("Deleting")
-      .should("not.exist")
+      .should("not.exist");
 
     cy.contains(".appointment__card--show", "Tori Malcolm")
       .should("not.exist");

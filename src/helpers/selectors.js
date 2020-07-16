@@ -12,17 +12,17 @@ export function getAppointmentsForDay(state, day) {
     return [];
   }
   return [];
-}
+};
 
 export function getInterview(state, interview) {
   if (interview) {
     const interviewerId = interview.interviewer;
     const interviewerObj = state.interviewers[interviewerId];
-    const interviewObj = {...interview, interviewer:interviewerObj}
+    const interviewObj = {...interview, interviewer:interviewerObj};
     return interviewObj;
   }
   return null;
-}
+};
 
 export function getInterviewersForDay(state, day) {
   if (state.days.length > 0) {
@@ -32,10 +32,10 @@ export function getInterviewersForDay(state, day) {
       const Ints = [];
       dayObjectInterviewerIds.forEach(id => {
         Ints.push(state.interviewers[id])
-      })
+      });
       return Ints;
     }
     return [];
-  }
+  };
   return [];
-}
+};

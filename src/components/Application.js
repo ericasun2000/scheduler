@@ -2,10 +2,10 @@ import React from "react";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors.js"
-import useApplicationData from "../hooks/useApplicationData.js"
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors.js";
+import useApplicationData from "../hooks/useApplicationData.js";
 
-export default function Application(props) {
+export default function Application() {
   const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
   
   const appointments = getAppointmentsForDay(state, state.day);
@@ -45,5 +45,5 @@ export default function Application(props) {
       </section>
     </main>
   );
-}
+};
 

@@ -26,5 +26,5 @@ export default function InterviewerList(props) {
         {interviewers}
       </ul>
     </section>
-  )
-}
+  );
+};

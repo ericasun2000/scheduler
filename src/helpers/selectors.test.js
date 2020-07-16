@@ -1,4 +1,3 @@
-import React from "react";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 const state = {
