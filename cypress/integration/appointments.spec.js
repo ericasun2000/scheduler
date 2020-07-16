@@ -1,4 +1,5 @@
-const { CYCLIC_KEY } = require("@storybook/addon-actions/dist/constants")
+const { CYCLIC_KEY } = require("@storybook/addon-actions/dist/constants");
+const { getByAltText } = require("@testing-library/react");
 
 describe("Appointments", () => {
   beforeEach(() => {
@@ -42,6 +43,22 @@ describe("Appointments", () => {
 
   cy.contains(".appointment__card--show", "Lydia")
     .contains(".appointment__card--show", "Tori Malcolm");
+  });
 
+  it("should cancel an interview", () => {
+    cy.get("[alt=Delete]")
+      .first()
+      .click({ force: true });
+
+    cy.contains("Confirm")
+      .click();
+
+    cy.contains("Deleting")
+      .should("exist")
+      .contains("Deleting")
+      .should("not.exist")
+
+    cy.contains(".appointment__card--show", "Tori Malcolm")
+      .should("not.exist");
   })
 });
